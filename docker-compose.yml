@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  db:
+    container_name: pg_container
+    image: postgres:15-alpine
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - DB_SERVER=invoice-postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=invoice
+  app:
+    container_name: invoice-app
+    build: ./
+    image: app-test
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/invoice
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATASOURCE_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  pg-admin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4:6.20
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5050
+    ports:
+      - "5050:5050"
+    restart: unless-stopped
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+
+volumes:
+  postgres-data:
+    driver: local
+  pgadmin-data:
+    driver: local

@@ -1,0 +1,51 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+.idea/*
+target/*
+.DS_Store
+vs.bin
+App_Data/*
+node_modules
+src/main/resources/static/*
+!src/main/resources/static/.gitkeep
+node/
+etc/
+package-lock.json
+Licenses/*
+!Licenses/.gitkeep
+DocumentSamples/*
+!DocumentSamples/.gitkeep
+src/test/resources/*
+!src/test/resources/calibre.docx

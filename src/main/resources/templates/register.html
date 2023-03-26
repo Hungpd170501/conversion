@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Conversion App</title>
+    <script src="https://kit-pro.fontawesome.com/releases/v5.15.1/js/pro.min.js"></script>
+    <link
+            href="https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css"
+            rel="stylesheet"
+    />
+    <link rel="icon" th:href="@{/img/favicon.ico}">
+    <link href="/static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container sign-up-mode">
+    <div class="forms-container">
+        <div class="signin-signup">
+            <form class="sign-in-form"
+                  method="post"
+                  role="form" th:action="@{/login}">
+                <h2 class="title">Sign in</h2>
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Invalid Email and Password.</div>
+                </div>
+                <div th:if="${param.logout}">
+                    <div class="alert alert-success">You have been logged out.</div>
+                </div>
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">You've successfully registered
+                        to our app!
+                    </div>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input class="form-control"
+                           id="username"
+                           name="username"
+                           placeholder="Email"
+                           required type="text"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input class="form-control"
+                           name="password"
+                           placeholder="Password"
+                           required type="password"/>
+                </div>
+                <input class="btn solid" type="submit" value="Login"/>
+            </form>
+
+            <form class="sign-up-form" method="post" role="form" th:action="@{/register/save}" th:object="${user}">
+                <h2 class="title">Sign up</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input id="firstName"
+                           name="firstName"
+                           placeholder="Enter first name"
+                           required
+                           th:field="*{firstName}" type="text"/>
+                    <p class="text-danger" th:errors="*{firstName}"
+                       th:if="${#fields.hasErrors('firstName')}">
+                    </p>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input id="lastName"
+                           name="lastName"
+                           placeholder="Enter last name"
+                           required
+                           th:field="*{lastName}" type="text"/>
+                    <p class="text-danger" th:errors="*{lastName}"
+                       th:if="${#fields.hasErrors('lastName')}">
+                    </p>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input id="email"
+                           name="email"
+                           placeholder="Enter email address"
+                           required
+                           th:field="*{email}" type="email"/>
+                    <p class="text-danger" th:errors="*{email}"
+                       th:if="${#fields.hasErrors('email')}">
+                    </p>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input id="password"
+                           name="password"
+                           placeholder="Enter password"
+                           required
+                           th:field="*{password}" type="password"/>
+                    <p class="text-danger" th:errors="*{password}"
+                       th:if="${#fields.hasErrors('password')}">
+                    </p>
+                </div>
+                <input class="btn solid" type="submit" value="Sign up"/>
+            </form>
+        </div>
+    </div>
+    <div class="panels-container">
+        <div class="panel left-panel">
+            <div class="content">
+                <h3>New here ?</h3>
+                <p>
+                    Already account?
+                </p>
+                <button class="btn transparent" id="sign-up-btn">Sign up</button>
+            </div>
+
+            <img alt="" class="image" href="/static/img/log.svg" th:src="@{/img/log.svg}"/>
+        </div>
+
+        <div class="panel right-panel">
+            <div class="content">
+                <h3>One of us ?</h3>
+                <p>
+                    Not account yet? Create one
+                </p>
+                <button class="btn transparent" id="sign-in-btn">Sign in</button>
+            </div>
+
+            <img alt="" class="image" href="/static/img/register.svg" th:src="@{/img/register.svg}"/>
+        </div>
+    </div>
+</div>
+
+<script href="/static/js/app.js" th:src="@{/js/app.js}"></script>
+</body>
+</html>
